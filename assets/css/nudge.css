@@ -12,7 +12,7 @@
  * `--nudge-*` namespace, so themes can re-skin the bar without touching markup.
  * The track reserves its full height up front (no Cumulative Layout Shift) and
  * the fill width transitions smoothly, but only where motion is allowed.
- * Dark-mode aware via prefers-color-scheme.
+ * Dark-mode aware: follows the page color-scheme (light-dark()).
  */
 
 .nudge {
@@ -164,13 +164,28 @@
 	}
 }
 
-/* Dark-mode: lift the track so the fill stays legible on dark backgrounds. */
-@media (prefers-color-scheme: dark) {
+/*
+ * Dark look follows the page's color scheme (set by the theme), not the OS: a
+ * dark browser on a light theme would otherwise put a 16% white track on white.
+ */
+@supports (color: light-dark(white, black)) {
 	.nudge {
-		--nudge-track: rgba(255, 255, 255, 0.16);
-		--nudge-line: #4ade80;
-		--nudge-pace-end: #22c55e;
-		--nudge-success: #22c55e;
+		--nudge-track: light-dark(#e8eaed, rgba(255, 255, 255, 0.16));
+		--nudge-line: light-dark(#15803d, #4ade80);
+		--nudge-pace-end: light-dark(#16a34a, #22c55e);
+		--nudge-success: light-dark(#15803d, #22c55e);
+	}
+}
+
+/* Browsers without light-dark() keep following the OS preference. */
+@supports not (color: light-dark(white, black)) {
+	@media (prefers-color-scheme: dark) {
+		.nudge {
+			--nudge-track: rgba(255, 255, 255, 0.16);
+			--nudge-line: #4ade80;
+			--nudge-pace-end: #22c55e;
+			--nudge-success: #22c55e;
+		}
 	}
 }
 

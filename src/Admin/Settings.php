@@ -215,7 +215,7 @@ final class Settings implements HasHooks
                                 </th>
                                 <td>
                                     <input type="number" min="0" step="0.01" id="nudge_manual_threshold" name="<?php echo esc_attr(self::OPTION); ?>[manual_threshold]" value="<?php echo esc_attr((string) ($settings['manual_threshold'] ?? 0)); ?>" class="regular-text" />
-                                    <p class="description"><?php esc_html_e('In your store currency, before shipping and taxes. Used when the source is Manual, or as the fallback for Automatic. Default: 50.', 'shiplume'); ?></p>
+                                    <p class="description"><?php esc_html_e('In your store currency, before shipping and taxes. Used when the source is Manual, or as the fallback for Automatic.', 'shiplume'); ?></p>
                                 </td>
                             </tr>
                         </tbody>
