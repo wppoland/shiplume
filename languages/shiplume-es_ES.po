@@ -224,13 +224,10 @@ msgid "Manual amount"
 msgstr "Cantidad manual"
 
 #: src/Admin/Settings.php:218
-#, fuzzy
 msgid ""
 "In your store currency, before shipping and taxes. Used when the source is "
 "Manual, or as the fallback for Automatic."
 msgstr ""
-"En la moneda de tu tienda, antes de envío e impuestos. Se utiliza cuando la "
-"fuente es Manual o como alternativa para Automático. Predeterminado: 50."
 
 #: src/Admin/Settings.php:226
 msgid "Messages"
