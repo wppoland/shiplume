@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.2
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -161,6 +161,10 @@ Shiplume does not connect to any external service. It does not send analytics, r
 Shiplume is fully translatable and ships the `shiplume.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.2.8 =
+* Fixed: the bar's dark colours follow the page's color scheme set by the theme, not the browser. On a light theme in a dark browser the track was nearly invisible.
+* Fixed: the manual amount help text no longer claims a default of 50; the shipped default is 0.
 
 = 1.2.7 =
 * Plugins list shows a shortcut to the settings screen.

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Nudge - Free Shipping Progress Bar for WooCommerce "
 "0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/shiplume\n"
-"POT-Creation-Date: 2026-10-29T13:40:04+00:00\n"
+"POT-Creation-Date: 2026-11-26T13:47:25+00:00\n"
 "PO-Revision-Date: 2026-06-16T20:23:00+00:00\n"
 "Last-Translator: motylanogha <szatkowski.mariusz@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -98,26 +98,26 @@ msgstr "una licencia, todas las funciones PRO"
 msgid "What %s adds"
 msgstr "Lo que añade %s"
 
-#: src/Admin/Settings.php:50
-msgid "Shiplume: free shipping bar"
-msgstr ""
-
-#: src/Admin/Settings.php:51
+#: src/Admin/Settings.php:53 src/Admin/Settings.php:63
 msgid "Shiplume"
 msgstr ""
 
-#: src/Admin/Settings.php:120
+#: src/Admin/Settings.php:62
+msgid "Shiplume: free shipping bar"
+msgstr ""
+
+#: src/Admin/Settings.php:132
 msgid ""
 "Shiplume shows customers how close they are to free shipping and exactly how "
 "much more to add to unlock it. It updates live as the cart changes. The "
 "defaults work out of the box, adjust below only if you want to."
 msgstr ""
 
-#: src/Admin/Settings.php:128
+#: src/Admin/Settings.php:140
 msgid "General"
 msgstr "General"
 
-#: src/Admin/Settings.php:129
+#: src/Admin/Settings.php:141
 msgid ""
 "Turn the bar on and choose where shoppers see it. Showing it on both cart "
 "and checkout keeps the goal in front of them through the whole purchase."
@@ -126,15 +126,15 @@ msgstr ""
 "el carrito como en el pago mantiene el objetivo frente a ellos durante toda "
 "la compra."
 
-#: src/Admin/Settings.php:133
+#: src/Admin/Settings.php:145
 msgid "Enable Shiplume"
 msgstr ""
 
-#: src/Admin/Settings.php:137
+#: src/Admin/Settings.php:149
 msgid "Show the free-shipping progress bar to shoppers."
 msgstr "Muestre la barra de progreso del envío gratuito a los compradores."
 
-#: src/Admin/Settings.php:139
+#: src/Admin/Settings.php:151
 msgid ""
 "When off, the bar and its assets never load, no styles or scripts are added "
 "to the front end."
@@ -142,50 +142,50 @@ msgstr ""
 "Cuando está desactivada, la barra y sus recursos nunca se cargan, no se "
 "agregan estilos ni scripts al front-end."
 
-#: src/Admin/Settings.php:145
+#: src/Admin/Settings.php:157
 msgid "Cart page"
 msgstr "Página del carrito"
 
-#: src/Admin/Settings.php:146
+#: src/Admin/Settings.php:158
 msgid ""
 "Show the bar on the cart page: above the totals on the classic cart, above "
 "the Cart block on a block cart."
 msgstr ""
 
-#: src/Admin/Settings.php:151
+#: src/Admin/Settings.php:163
 msgid "Checkout page"
 msgstr "página de pago"
 
-#: src/Admin/Settings.php:152
+#: src/Admin/Settings.php:164
 msgid "Show the bar on checkout, so the goal stays visible while they pay."
 msgstr ""
 "Muestre la barra al finalizar la compra, para que el objetivo permanezca "
 "visible mientras pagan."
 
-#: src/Admin/Settings.php:157
+#: src/Admin/Settings.php:169
 msgid "Mini-cart widget"
 msgstr ""
 
-#: src/Admin/Settings.php:158
+#: src/Admin/Settings.php:170
 msgid "Show the bar in the classic mini-cart widget, above its buttons."
 msgstr ""
 
-#: src/Admin/Settings.php:163
+#: src/Admin/Settings.php:175
 msgid "Shortcode"
 msgstr ""
 
-#: src/Admin/Settings.php:166
+#: src/Admin/Settings.php:178
 msgid ""
 "Place the same bar anywhere else, for example in a header or on a product "
 "page. It shows the cart as it is when the page loads and updates after an "
 "add to cart."
 msgstr ""
 
-#: src/Admin/Settings.php:174
+#: src/Admin/Settings.php:186
 msgid "Free-shipping threshold"
 msgstr "Umbral de envío gratuito"
 
-#: src/Admin/Settings.php:175
+#: src/Admin/Settings.php:187
 msgid ""
 "Where the “you reach free shipping at…” amount comes from. Automatic keeps "
 "the bar in sync with your real shipping rules, so it is never wrong after a "
@@ -195,19 +195,19 @@ msgstr ""
 "Automático mantiene la barra sincronizada con sus reglas de envío reales, "
 "para que nunca se equivoque tras un cambio de precio."
 
-#: src/Admin/Settings.php:180
+#: src/Admin/Settings.php:192
 msgid "Threshold source"
 msgstr "Fuente umbral"
 
-#: src/Admin/Settings.php:187
+#: src/Admin/Settings.php:199
 msgid "Automatic (from free-shipping method)"
 msgstr "Automático (desde método de envío gratuito)"
 
-#: src/Admin/Settings.php:188
+#: src/Admin/Settings.php:200
 msgid "Manual (fixed amount)"
 msgstr "Manual (cantidad fija)"
 
-#: src/Admin/Settings.php:197
+#: src/Admin/Settings.php:209
 msgid ""
 "Automatic reads the minimum order amount from your WooCommerce free-shipping "
 "method, the smallest one across your shipping zones, so the bar updates "
@@ -219,24 +219,25 @@ msgstr ""
 "actualiza sola cuando cambia esa regla. La cantidad manual a continuación se "
 "utiliza como alternativa cuando no se encuentra dicho método."
 
-#: src/Admin/Settings.php:202
+#: src/Admin/Settings.php:214
 msgid "Manual amount"
 msgstr "Cantidad manual"
 
-#: src/Admin/Settings.php:206
+#: src/Admin/Settings.php:218
+#, fuzzy
 msgid ""
 "In your store currency, before shipping and taxes. Used when the source is "
-"Manual, or as the fallback for Automatic. Default: 50."
+"Manual, or as the fallback for Automatic."
 msgstr ""
 "En la moneda de tu tienda, antes de envío e impuestos. Se utiliza cuando la "
 "fuente es Manual o como alternativa para Automático. Predeterminado: 50."
 
-#: src/Admin/Settings.php:214
+#: src/Admin/Settings.php:226
 msgid "Messages"
 msgstr "Mensajes"
 
 #. translators: %s: the {amount} token, shown as a styled chip.
-#: src/Admin/Settings.php:219
+#: src/Admin/Settings.php:231
 #, php-format
 msgid ""
 "What the bar says before and after the goal is reached. Write %s where you "
@@ -245,17 +246,35 @@ msgid ""
 "reached nothing is remaining, so in the success message it reads as zero."
 msgstr ""
 
-#: src/Admin/Settings.php:228
+#: src/Admin/Settings.php:240
 msgid "Progress message"
 msgstr "Mensaje de progreso"
 
-#: src/Admin/Settings.php:233 src/Admin/Settings.php:245
+#: src/Admin/Settings.php:245 src/Admin/Settings.php:257
 msgid "Shoppers see:"
 msgstr "Los compradores ven:"
 
-#: src/Admin/Settings.php:240
+#: src/Admin/Settings.php:252
 msgid "Success message"
 msgstr "Mensaje de éxito"
+
+#: src/Admin/Settings.php:296
+msgid "Complementary integration: Sojlo - Minimum Order for WooCommerce"
+msgstr ""
+
+#: src/Admin/Settings.php:298
+msgid ""
+"Pair your free shipping progress bar with minimum and maximum order "
+"thresholds to protect store profitability."
+msgstr ""
+
+#: src/Admin/Settings.php:303
+msgid "Sojlo is active."
+msgstr ""
+
+#: src/Admin/Settings.php:308
+msgid "Explore Sojlo Minimum Order"
+msgstr ""
 
 #: src/Service/ProgressBarService.php:281
 msgid ""
