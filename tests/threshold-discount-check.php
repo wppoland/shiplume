@@ -8,6 +8,8 @@
  * with a 20% coupon gets free shipping from WooCommerce while the bar still
  * said "Add 4.00 more".
  *
+ * Also: a non-core method counts through the nudge/method_free_amount filter.
+ *
  * Run: php tests/threshold-discount-check.php
  */
 
@@ -18,16 +20,14 @@ namespace {
 
     class WC_Shipping_Method
     {
-        public string $id = 'free_shipping';
-
         /** @param array<string, string> $options */
-        public function __construct(private array $options)
+        public function __construct(private array $options, public string $id = 'free_shipping', private bool $enabled = true)
         {
         }
 
         public function is_enabled(): bool
         {
-            return true;
+            return $this->enabled;
         }
 
         public function get_option(string $key): string
@@ -38,6 +38,11 @@ namespace {
 
     class WC_Shipping_Zone
     {
+        /** @return list<WC_Shipping_Method> */
+        public function get_shipping_methods(bool $enabledOnly): array
+        {
+            return WC_Shipping_Zones::$methods;
+        }
     }
 
     class WC_Shipping_Zones
@@ -54,6 +59,11 @@ namespace {
         public static function get_zone_by(string $by, int $id): ?WC_Shipping_Zone
         {
             return null;
+        }
+
+        public static function get_zone(int $id): WC_Shipping_Zone
+        {
+            return new WC_Shipping_Zone();
         }
     }
 
@@ -85,9 +95,12 @@ namespace {
         return (object) ['cart' => new WC_Cart()];
     }
 
+    /** @var array<string, callable> */
+    $GLOBALS['filters'] = [];
+
     function apply_filters(string $hook, mixed $value, mixed ...$args): mixed
     {
-        return $value;
+        return isset($GLOBALS['filters'][$hook]) ? $GLOBALS['filters'][$hook]($value, ...$args) : $value;
     }
 
     function wc_format_decimal(string $value): string
@@ -119,6 +132,29 @@ namespace {
     if (0.0 !== $none) {
         echo "FAIL: with no free-shipping method and default settings the threshold is {$none}, expected 0 (no bar)\n";
         $failures++;
+    }
+
+    // A non-core method counts only through nudge/method_free_amount, and only while enabled.
+    $core    = new WC_Shipping_Method(['requires' => 'min_amount', 'min_amount' => '100', 'ignore_discounts' => 'yes']);
+    $carrier = new WC_Shipping_Method(['free_above' => '80'], 'carrier');
+    $off     = new WC_Shipping_Method(['free_above' => '50'], 'carrier', false);
+    $GLOBALS['filters']['nudge/method_free_amount'] = static fn (float $amount, WC_Shipping_Method $m): float => 'carrier' === $m->id ? (float) $m->get_option('free_above') : $amount;
+    $cases = [
+        'no filter amount: core only'  => [[$core, new WC_Shipping_Method([], 'flat_rate')], 100.0, 120.0],
+        'carrier lower: carrier wins'  => [[$core, $carrier, $off], 80.0, 96.0],
+        'carrier alone'                => [[$carrier], 80.0, 96.0],
+        'disabled carrier ignored'     => [[$off], 0.0, 96.0],
+    ];
+    foreach ($cases as $name => [$methods, $want, $wantTotal]) {
+        WC_Shipping_Zones::$methods = $methods;
+        $resolver = new \Nudge\Service\ThresholdResolver();
+        $got      = $resolver->threshold(['threshold_source' => 'auto', 'manual_threshold' => 0]);
+        $total    = $resolver->cartTotal();
+        $zone     = (new \Nudge\Service\ThresholdResolver())->zoneThreshold(3);
+        if ($want !== $got || $want !== $zone || $wantTotal !== $total) {
+            echo "FAIL: {$name}: threshold {$got}, zone {$zone}, total {$total}; expected {$want}, {$wantTotal}\n";
+            $failures++;
+        }
     }
 
     echo 0 === $failures ? "OK: progress follows the free-shipping discount rule\n" : '';
