@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.2
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,13 @@ WooCommerce free-shipping methods and uses the smallest one across your shipping
 zones. In Manual mode you set a fixed amount yourself. If Automatic mode finds no
 method with a minimum order amount, it uses the manual amount instead.
 
+A shipping method from another plugin with its own "free from" amount (for
+example a carrier method) is not read on its own. That plugin, or a snippet, can
+pass its amount to Shiplume through the `nudge/method_free_amount` filter, which
+receives `0.0` and the enabled `WC_Shipping_Method` and returns the amount. Shiplume
+compares it with the cart subtotal after coupons and keeps the smallest amount, as
+for WooCommerce free shipping.
+
 = What shows when no free-shipping goal is configured? =
 
 Nothing. Rather than render an empty or always-complete bar, Shiplume skips output
@@ -161,6 +168,9 @@ Shiplume does not connect to any external service. It does not send analytics, r
 Shiplume is fully translatable and ships the `shiplume.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.2.9 =
+* New: `nudge/method_free_amount` filter. Automatic mode can count the "free from" amount of a shipping method that is not WooCommerce Free shipping, such as a carrier method from another plugin.
 
 = 1.2.8 =
 * Fixed: the bar's dark colours follow the page's color scheme set by the theme, not the browser. On a light theme in a dark browser the track was nearly invisible.

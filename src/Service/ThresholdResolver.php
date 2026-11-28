@@ -11,7 +11,8 @@ defined('ABSPATH') || exit;
  *
  * In "auto" mode it inspects every shipping zone (plus the "rest of the world"
  * zone) for an enabled `free_shipping` method whose requirement involves a
- * minimum order amount, and uses the smallest such amount it finds. When no
+ * minimum order amount, or any other enabled method given an amount through the
+ * `nudge/method_free_amount` filter, and uses the smallest such amount it finds. When no
  * qualifying method exists, or the source is set to "manual", it falls back to
  * the merchant-configured amount.
  *
@@ -114,8 +115,10 @@ final class ThresholdResolver
 
             if ($amount > 0.0 && ($best === 0.0 || $amount < $best)) {
                 $best = $amount;
-                // methodMinAmount() only returns > 0 for a WC_Shipping_Method.
+                // methodMinAmount() only returns > 0 for a WC_Shipping_Method; filtered
+                // methods count after coupons, so only core free_shipping can ignore them.
                 $this->ignoreDiscounts = $method instanceof \WC_Shipping_Method
+                    && 'free_shipping' === $method->id
                     && 'yes' === $method->get_option('ignore_discounts');
             }
         }
@@ -136,12 +139,22 @@ final class ThresholdResolver
             return 0.0;
         }
 
-        if ($method->id !== 'free_shipping') {
+        if (! $method->is_enabled()) {
             return 0.0;
         }
 
-        if (! $method->is_enabled()) {
-            return 0.0;
+        if ($method->id !== 'free_shipping') {
+            /**
+             * The "free from" amount of a method that is not WooCommerce Free shipping
+             * (e.g. a carrier method with its own free-above setting). Return 0 for none.
+             * Shiplume compares it with the cart subtotal after coupons.
+             *
+             * @param float               $amount Default 0.0.
+             * @param \WC_Shipping_Method $method Enabled method in a shipping zone.
+             */
+            $amount = (float) apply_filters('nudge/method_free_amount', 0.0, $method);
+
+            return $amount > 0.0 ? $amount : 0.0;
         }
 
         $requires = (string) $method->get_option('requires');
