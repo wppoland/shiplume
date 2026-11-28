@@ -1,11 +1,11 @@
 === Shiplume - Shipping Progress Bar for WooCommerce ===
 Contributors: motylanogha
-Tags: woocommerce, free shipping, cart, progress bar, conversions
+Tags: free shipping bar, free shipping, shipping bar, progress bar, free shipping progress bar
 Requires at least: 6.5
 Tested up to: 7.2
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 1.2.9
+Stable tag: 1.2.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,9 @@ Shiplume does not connect to any external service. It does not send analytics, r
 Shiplume is fully translatable and ships the `shiplume.pot` template. Translations are delivered by WordPress.org language packs from translate.wordpress.org, which is where Polish, German and Spanish are being contributed; the package itself carries no compiled translation files.
 
 == Changelog ==
+
+= 1.2.10 =
+* Readme: tags updated.
 
 = 1.2.9 =
 * New: `nudge/method_free_amount` filter. Automatic mode can count the "free from" amount of a shipping method that is not WooCommerce Free shipping, such as a carrier method from another plugin.
